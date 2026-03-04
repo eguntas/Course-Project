@@ -12,7 +12,7 @@ services:
             - mongo.db.category.volume:/data/db
     mongo.db.category.ui:
         image: mongo-express:1.0.2-20-alpine3.19
-        container_name: mongo.db.category.ui
+        container_name: mongo.db.category.ui.container
         ports:
         - 27032:8081
         environment:
