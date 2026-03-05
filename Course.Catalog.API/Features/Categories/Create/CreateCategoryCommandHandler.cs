@@ -1,8 +1,4 @@
 ﻿using Course.Catalog.API.Repositories;
-using Course.Shared;
-using MassTransit;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace Course.Catalog.API.Features.Categories.Create
 {

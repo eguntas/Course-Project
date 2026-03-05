@@ -1,8 +1,5 @@
 ﻿using Course.Catalog.API.Features.Categories;
-using Course.Catalog.API.Features.Courses;
-using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver;
-using MongoDB.EntityFrameworkCore.Extensions;
 using System.Reflection;
 
 namespace Course.Catalog.API.Repositories

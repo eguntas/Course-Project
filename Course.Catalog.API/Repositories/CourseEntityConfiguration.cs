@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MongoDB.EntityFrameworkCore.Extensions;
 
 namespace Course.Catalog.API.Repositories
@@ -14,7 +13,7 @@ namespace Course.Catalog.API.Repositories
             builder.Property(x => x.Name).HasElementName("name").HasMaxLength(100);
             builder.Property(x => x.Description).HasElementName("description").HasMaxLength(1000);
             builder.Property(x => x.UserId).HasElementName("userId");
-            builder.Property(x => x.Picture).HasElementName("picture");
+            builder.Property(x => x.ImageUrl).HasElementName("imageUrl");
             builder.Property(x => x.Price).HasElementName("price");
             builder.Property(x => x.Created).HasElementName("created");
             builder.Property(x => x.CategoryId).HasElementName("categoryId");

@@ -1,11 +1,8 @@
 using Course.Catalog.API;
 using Course.Catalog.API.Features.Categories;
-using Course.Catalog.API.Features.Categories.Create;
+using Course.Catalog.API.Features.Courses;
 using Course.Catalog.API.Options;
 using Course.Catalog.API.Repositories;
-using Course.Shared.Extensions;
-using MediatR;
-using Microsoft.AspNetCore.Http.HttpResults;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +15,8 @@ builder.Services.AddCommonServiceExtension(typeof(CatalogAssembly));
 
 
 var app = builder.Build();
-app.AddCategoryEndpoints();
+app.AddCategoryEndpointExtension();
+app.AddCourseEndpointsExtension();
 
 if (app.Environment.IsDevelopment())
 {

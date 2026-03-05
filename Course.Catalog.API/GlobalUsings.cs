@@ -1,0 +1,10 @@
+﻿global using MediatR;
+global using Course.Shared;
+global using Course.Shared;
+global using MassTransit;
+global using MediatR;
+global using Microsoft.EntityFrameworkCore;
+global using FluentValidation;
+global using Course.Shared.Extensions;
+global using Course.Shared.Filters;
+global using AutoMapper;
