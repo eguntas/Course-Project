@@ -11,7 +11,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddOptionExtension();
 builder.Services.AddDatabaseServiceExtension();
 builder.Services.AddCommonServiceExtension(typeof(CatalogAssembly));
-
+builder.Services.AddVersioningExtension();
 
 
 var app = builder.Build();
@@ -20,8 +20,8 @@ app.AddSeedDataExtension().ContinueWith(x =>
     Console.WriteLine(x.IsFaulted ? x.Exception?.Message : "Seed data added successfully.");
 });
 
-app.AddCategoryEndpointExtension();
-app.AddCourseEndpointsExtension();
+app.AddCategoryEndpointExtension(app.AddVersionSetExtension());
+app.AddCourseEndpointsExtension(app.AddVersionSetExtension());
 
 if (app.Environment.IsDevelopment())
 {

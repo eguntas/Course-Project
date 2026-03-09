@@ -27,7 +27,9 @@ namespace Course.Catalog.API.Features.Courses.GetById
         public static RouteGroupBuilder GetCourseByIdGroupItemEndpoint(this RouteGroupBuilder group)
         {
             group.MapGet("/{id:guid}", async (IMediator mediator , Guid id) =>
-                (await mediator.Send(new GetCourseByIdQuery(id))).ToGenericResult());
+                (await mediator.Send(new GetCourseByIdQuery(id))).ToGenericResult()).
+                  WithName("GetByIdCourse")
+                .MapToApiVersion(1, 0);
 
 
             return group;

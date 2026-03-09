@@ -8,7 +8,9 @@ namespace Course.Catalog.API.Features.Courses.Update
         {
             group.MapPut("/", async (UpdateCourseCommand command , IMediator mediator) =>
                 (await mediator.Send(command)).ToGenericResult())
-                .AddEndpointFilter<ValidationFilter<UpdateCourseCommandValidator>>();
+                .AddEndpointFilter<ValidationFilter<UpdateCourseCommandValidator>>().
+                  WithName("UpdateCourse")
+                .MapToApiVersion(1, 0);
 
 
             return group;
