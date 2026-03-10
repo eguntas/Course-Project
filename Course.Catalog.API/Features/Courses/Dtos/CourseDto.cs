@@ -2,6 +2,6 @@
 
 namespace Course.Catalog.API.Features.Courses.Dtos
 {
-    public class CourseDto(Guid Id, string Name, string Description, string ImageUrl, CategoryDto Category, FeatureDto Feature, decimal Price)
+    public class CourseDto(Guid Id, string Name, string Description, string ImageUrl, CategoryDto Category, FeatureDto Feature, decimal Price);
    
 }
