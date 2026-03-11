@@ -3,6 +3,7 @@ using Asp.Versioning.Builder;
 using Course.Catalog.API.Features.Courses.Create;
 using Course.Catalog.API.Features.Courses.Delete;
 using Course.Catalog.API.Features.Courses.GetAll;
+using Course.Catalog.API.Features.Courses.GetAllByUserId;
 using Course.Catalog.API.Features.Courses.GetById;
 using Course.Catalog.API.Features.Courses.Update;
 
@@ -14,7 +15,7 @@ namespace Course.Catalog.API.Features.Courses
         {
             var group = app.MapGroup("/api/v{version:apiVersion}/courses").WithTags("Courses").WithApiVersionSet(apiVersion).
                 CreateCourseGroupItemEndpoint().
-                GetCourseByIdGroupItemEndpoint().
+                GetCourseByUserIdGroupItemEndpoint().
                 GetAllCourseGroupItemEndpoint().
                 UpdateCourseGroupItemEndpoint().
                 DeleteCourseGroupItemEndpoint().

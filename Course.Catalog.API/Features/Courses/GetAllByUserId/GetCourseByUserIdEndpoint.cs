@@ -26,7 +26,7 @@ namespace Course.Catalog.API.Features.Courses.GetAllByUserId
     }
     public static class GetCourseByUserIdEndpoint
     {
-        public static RouteGroupBuilder GetCourseByIdGroupItemEndpoint(this RouteGroupBuilder group)
+        public static RouteGroupBuilder GetCourseByUserIdGroupItemEndpoint(this RouteGroupBuilder group)
         {
             group.MapGet("/user/{userId:guid}", async (IMediator mediator, Guid userId) =>
                 (await mediator.Send(new GetCourseByUserIdQuery(userId))).ToGenericResult()).
