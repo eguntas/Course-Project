@@ -9,10 +9,8 @@ namespace Course.Basket.API.Feature.Basket.AddBasketItem
         public static RouteGroupBuilder AddBasketItemGroupItemEndpoint(this RouteGroupBuilder builder)
         {
             builder.MapPost("/item", async (AddBasketItemCommand command, IMediator mediator) =>
-            {
-                var result = await mediator.Send(command);
-                return result.ToGenericResult();
-            }).WithName("AddBasketItem")
+                (await mediator.Send(command)).ToGenericResult())
+                .WithName("AddBasketItem")
                 .MapToApiVersion(1, 0)
                 .AddEndpointFilter<ValidationFilter<AddBasketItemCommandValidator>>();
 

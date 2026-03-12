@@ -42,13 +42,11 @@ namespace Course.Basket.API.Feature.Basket.RemoveDiscountCoupon
     {
         public static RouteGroupBuilder RemoveDiscountCouponGroupItemEndpoint(this RouteGroupBuilder builder)
         {
-            builder.MapDelete("/remove-discount-coupon", async (RemoveDiscountCouponCommand command, IMediator mediator) =>
-            {
-                var result = await mediator.Send(command);
-                return result.ToGenericResult();
-            }).WithName("RemoveDiscountCoupon")
+            builder.MapDelete("/remove-discount-coupon", async (IMediator mediator) =>
+                (await mediator.Send(new RemoveDiscountCouponCommand())).ToGenericResult())
+                .WithName("RemoveDiscountCoupon")
                 .MapToApiVersion(1, 0);
-
+             
             return builder;
         }
     }
