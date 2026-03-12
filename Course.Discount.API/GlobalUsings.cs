@@ -1,5 +1,6 @@
 ﻿global using MediatR;
 global using Course.Shared;
+global using Course.Shared;
 global using MassTransit;
 global using MediatR;
 global using Microsoft.EntityFrameworkCore;
