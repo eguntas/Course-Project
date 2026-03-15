@@ -43,7 +43,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Course.Order.Domain", "Cour
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Course.Order.Application", "Course.Order.Application\Course.Order.Application.csproj", "{DA71C1DE-6B0D-4992-8792-5A04C5BF2F53}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Course.Order.Persistance", "Course.Order.Persistance\Course.Order.Persistance.csproj", "{C6140ED9-438B-4F8E-8377-B8B9897884E0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Course.Order.Persistence", "Course.Order.Persistance\Course.Order.Persistence.csproj", "{C6140ED9-438B-4F8E-8377-B8B9897884E0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
