@@ -1,19 +1,22 @@
 ﻿using Course.Order.Application.Contracts.Repositories;
+using Course.Order.Application.Contracts.UnitOfWorks;
 using Course.Order.Domain.Entities;
 using Course.Shared;
 using Course.Shared.Services;
 using MediatR;
+using System.Reflection.Metadata;
 
-namespace Course.Order.Application.Features.Orders.Create
+namespace Course.Order.Application.Features.Orders.CreateOrder
 {
-    public class CreateOrderCommandHandler(IGenericRepository<Guid , Domain.Entities.Order> orderRepository , IGenericRepository<int,Address> addressRepository , IIdentityService identityService) : IRequestHandler<CreateOrderCommand, ServiceResult>
+    public class CreateOrderCommandHandler(IOrderRepository orderRepository , IGenericRepository<int,Address> addressRepository , IIdentityService identityService , IUnitOfWork unitOfWork) 
+        : IRequestHandler<CreateOrderCommand, ServiceResult>
     {
       
-        public Task<ServiceResult> IRequestHandler<CreateOrderCommand, ServiceResult>.Handle(CreateOrderCommand request, CancellationToken cancellationToken)
+        public async Task<ServiceResult> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
         {
             if (request.Items.Any())
             {
-                return Task.FromResult(ServiceResult.Error("Invalid Order", "Order must contain at least one item.", System.Net.HttpStatusCode.BadRequest));
+                return ServiceResult.Error("Invalid Order", "Order must contain at least one item.", System.Net.HttpStatusCode.BadRequest);
             }
 
             var newAddress = new Address{
@@ -24,7 +27,6 @@ namespace Course.Order.Application.Features.Orders.Create
                 Line = request.Address.Line
             };
 
-            addressRepository.Add(newAddress);
 
             var order = Domain.Entities.Order.CreateUnPaidOrder(identityService.GetUserId ,request.DiscountRate , newAddress.Id);
 
@@ -32,13 +34,19 @@ namespace Course.Order.Application.Features.Orders.Create
             {
                 order.AddOrderItem(orderItem.ProductId, orderItem.ProductName, orderItem.UnitPrice);
             }
+
+            order.Address = newAddress;
+
             orderRepository.Add(order);
+            await unitOfWork.CommitAsync(cancellationToken);
+
             var paymentId = Guid.Empty;
             order.SetPaid(paymentId);
 
             orderRepository.Update(order);
+            await unitOfWork.CommitAsync(cancellationToken);
 
-            return Task.FromResult(ServiceResult.SuccessAsNoContent()); 
+            return ServiceResult.SuccessAsNoContent(); 
 
         }
     }

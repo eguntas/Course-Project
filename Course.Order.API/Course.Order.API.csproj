@@ -12,11 +12,13 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="7.2.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Course.Order.Application\Course.Order.Application.csproj" />
     <ProjectReference Include="..\Course.Order.Persistance\Course.Order.Persistence.csproj" />
+    <ProjectReference Include="..\Course.Shared\Course.Shared.csproj" />
   </ItemGroup>
 
 </Project>

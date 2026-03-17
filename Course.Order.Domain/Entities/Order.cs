@@ -46,9 +46,25 @@ namespace Course.Order.Domain.Entities
             };
         }
 
+        public static Order CreateUnPaidOrder(Guid BuyerId, float? discountRate)
+        {
+            return new Order
+            {
+                Id = NewId.NextGuid(),
+                Code = GenerateOrderCode(),
+                Created = DateTime.Now,
+                BuyerId = BuyerId,
+                Status = OrderStatus.WaitingForPayment,
+                DiscountRate = discountRate,
+                TotalPrice = 0
+            };
+        }
+
         public void AddOrderItem(Guid productId , string productName , decimal unitPrice)
         {
             var orderItem = new OrderItem();
+            if(DiscountRate.HasValue)
+                unitPrice -= unitPrice * (decimal)DiscountRate.Value / 100;
             orderItem.SetItem(productId, productName, unitPrice);
             OrderItems.Add(orderItem);
             CalculateTotalPrice();
@@ -71,12 +87,6 @@ namespace Course.Order.Domain.Entities
         private void CalculateTotalPrice()
         {
             TotalPrice = OrderItems.Sum(item => item.UnitPrice);
-            if (DiscountRate.HasValue)
-            {
-                TotalPrice -= TotalPrice * (decimal)DiscountRate.Value / 100;
-            }
         }
     }
-
-    
 }
