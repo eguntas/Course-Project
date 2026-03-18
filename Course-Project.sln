@@ -45,6 +45,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Course.Order.Application", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Course.Order.Persistence", "Course.Order.Persistance\Course.Order.Persistence.csproj", "{C6140ED9-438B-4F8E-8377-B8B9897884E0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "payment", "payment", "{B48D963B-50F7-43FC-8796-E9AF1507FD22}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Course.Payment.API", "Course.Payment.API\Course.Payment.API.csproj", "{01E2AC07-6DEB-42FE-97DE-6E32DD15AE61}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +95,10 @@ Global
 		{C6140ED9-438B-4F8E-8377-B8B9897884E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6140ED9-438B-4F8E-8377-B8B9897884E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C6140ED9-438B-4F8E-8377-B8B9897884E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01E2AC07-6DEB-42FE-97DE-6E32DD15AE61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01E2AC07-6DEB-42FE-97DE-6E32DD15AE61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01E2AC07-6DEB-42FE-97DE-6E32DD15AE61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01E2AC07-6DEB-42FE-97DE-6E32DD15AE61}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -115,6 +123,8 @@ Global
 		{41500786-67A9-42EC-99DE-F74C07D880DB} = {97564D78-49E9-4C5D-B3B4-870FEBFC80C7}
 		{DA71C1DE-6B0D-4992-8792-5A04C5BF2F53} = {97564D78-49E9-4C5D-B3B4-870FEBFC80C7}
 		{C6140ED9-438B-4F8E-8377-B8B9897884E0} = {AC7B009F-EF18-4301-BBBC-6BC0D94A48CA}
+		{B48D963B-50F7-43FC-8796-E9AF1507FD22} = {1175E34A-407D-401E-A392-9CA5F2612552}
+		{01E2AC07-6DEB-42FE-97DE-6E32DD15AE61} = {B48D963B-50F7-43FC-8796-E9AF1507FD22}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {32293761-C346-4510-B37D-7857CF19CAE0}
