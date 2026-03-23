@@ -1,5 +1,8 @@
 using Course.Payment.API;
+using Course.Payment.API.Features.Payments;
+using Course.Payment.API.Repositories;
 using Course.Shared.Extensions;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,8 +13,14 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddVersioningExtension();
 builder.Services.AddCommonServiceExtension(typeof(PaymentAssembly));
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+    options.UseInMemoryDatabase("payment-in-memory-db");
+});
 
 var app = builder.Build();
+app.AddPaymentEndpointExtension(app.AddVersionSetExtension());
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

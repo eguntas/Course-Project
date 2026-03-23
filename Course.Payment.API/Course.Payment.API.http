@@ -1,6 +1,16 @@
 @Course.Payment.API_HostAddress = http://localhost:5197
 
-GET {{Course.Payment.API_HostAddress}}/weatherforecast/
+POST {{Course.Payment.API_HostAddress}}/api/v1/payments
+Content-Type : application/json
 Accept: application/json
+{
+    "OrderCode":"",
+    "CardNumber" : "12345678945600",
+    "CardHolderName" : "",
+    "CardExpirationName" : "Test User",
+    
+
+}
+
 
 ###
