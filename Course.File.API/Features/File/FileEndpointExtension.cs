@@ -11,7 +11,8 @@ namespace Course.File.API.Features.File
         {
             var group = app.MapGroup("/api/v{version:apiVersion}/files").WithTags("Files").WithApiVersionSet(apiVersion)
                 .UploadFileGroupItemEndpoint()
-                .DeleteFileGroupItemEndpoint();
+                .DeleteFileGroupItemEndpoint()
+                .RequireAuthorization();
         }
     }
 }

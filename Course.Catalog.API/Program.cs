@@ -13,6 +13,7 @@ builder.Services.AddDatabaseServiceExtension();
 builder.Services.AddCommonServiceExtension(typeof(CatalogAssembly));
 builder.Services.AddVersioningExtension();
 
+builder.Services.AddAuthenticationServiceExtension(builder.Configuration);
 
 var app = builder.Build();
 app.AddSeedDataExtension().ContinueWith(x =>
@@ -28,7 +29,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.Run();
 

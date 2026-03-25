@@ -10,7 +10,8 @@ namespace Course.Discount.API.Features.Discounts
         {
             var group = app.MapGroup("/api/v{version:apiVersion}/discounts").WithTags("Discounts").WithApiVersionSet(apiVersion).
                 CreateDiscountGroupItemEndpoint()
-                .GetDiscountByCodeGroupItemEndpoint();
+                .GetDiscountByCodeGroupItemEndpoint()
+                .RequireAuthorization();
         }
     }
 }

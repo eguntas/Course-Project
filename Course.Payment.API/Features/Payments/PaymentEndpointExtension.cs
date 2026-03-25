@@ -10,7 +10,7 @@ namespace Course.Payment.API.Features.Payments
         {
             var group = app.MapGroup("/api/v{version:apiVersion}/payments").WithTags("Payments").WithApiVersionSet(apiVersion).
                CreatePaymentGroupItemEndpoint()
-               .GetAllPaymentByUserIdGroupItemEndpoint();
+               .GetAllPaymentByUserIdGroupItemEndpoint().RequireAuthorization();
         }
     }
 }

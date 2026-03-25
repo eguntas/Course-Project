@@ -15,6 +15,7 @@ builder.Services.AddStackExchangeRedisCache(options =>
     options.Configuration = builder.Configuration.GetConnectionString("Redis");
 });
 
+builder.Services.AddAuthenticationServiceExtension(builder.Configuration);
 builder.Services.AddVersioningExtension();
 var app = builder.Build();
 
@@ -27,6 +28,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.AddBasketEndpointExtension(app.AddVersionSetExtension());
+
+app.UseAuthentication();
+app.UseAuthorization();
 app.Run();
 
 

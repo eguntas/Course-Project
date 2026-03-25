@@ -16,7 +16,8 @@ namespace Course.Basket.API.Feature.Basket
                 .DeleteBasketItemGroupItemEndpoint()
                 .GetBasketGroupItemEndpoint()
                 .ApplyDiscountCouponItemGroupItemEndpoint()
-                .RemoveDiscountCouponGroupItemEndpoint();
+                .RemoveDiscountCouponGroupItemEndpoint()
+                .RequireAuthorization();
         }
     }
 }

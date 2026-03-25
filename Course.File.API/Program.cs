@@ -12,6 +12,8 @@ builder.Services.AddVersioningExtension();
 builder.Services.AddCommonServiceExtension(typeof(FileAssembly));
 builder.Services.AddSingleton<IFileProvider>(new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(),"wwwroot")));
 
+builder.Services.AddAuthenticationServiceExtension(builder.Configuration);
+
 var app = builder.Build();
 app.AddFileEndpointExtension(app.AddVersionSetExtension());
 app.UseStaticFiles();
@@ -24,7 +26,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
+app.UseAuthorization();
 
 
 app.Run();

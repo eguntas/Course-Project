@@ -1,4 +1,4 @@
-﻿using Course.Order.Application.Features.Orders.Create;
+﻿using Course.Order.Application.Features.Orders.CreateOrder;
 using Course.Shared.Extensions;
 using Course.Shared.Filters;
 using MediatR;

@@ -15,6 +15,7 @@ builder.Services.AddOptionExtension();
 builder.Services.AddDatabaseServiceExtension();
 builder.Services.AddCommonServiceExtension(typeof(DiscountAssembly));
 
+builder.Services.AddAuthenticationServiceExtension(builder.Configuration);
 
 
 
@@ -30,7 +31,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
     app.MapOpenApi();
 }
-
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.Run();
 
