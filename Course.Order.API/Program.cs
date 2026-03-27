@@ -1,4 +1,4 @@
-using Course.Order.API;
+using Course.Bus;
 using Course.Order.API.Endpoints;
 using Course.Order.Application;
 using Course.Order.Application.Contracts.Repositories;
@@ -17,6 +17,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCommonServiceExtension(typeof(OrderApplicationAssembly));
+builder.Services.AddMasstransitExt(builder.Configuration);
 
 
 

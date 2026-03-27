@@ -1,3 +1,4 @@
+using Course.Bus;
 using Course.Payment.API;
 using Course.Payment.API.Features.Payments;
 using Course.Payment.API.Repositories;
@@ -18,6 +19,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseInMemoryDatabase("payment-in-memory-db");
 });
 builder.Services.AddAuthenticationServiceExtension(builder.Configuration);
+builder.Services.AddMasstransitExt(builder.Configuration);
 
 var app = builder.Build();
 app.AddPaymentEndpointExtension(app.AddVersionSetExtension());

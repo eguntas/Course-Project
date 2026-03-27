@@ -11,6 +11,7 @@ services:
         volumes: 
             - mongo.db.category.volume:/data/db
     mongo.db.category.ui:
+        restart: always
         image: mongo-express:1.0.2-20-alpine3.19
         container_name: mongo.db.category.ui.container
         ports:
@@ -50,6 +51,7 @@ services:
         volumes: 
             - mongo.db.discount.volume:/data/db
     mongo.db.discount.ui:
+        restart: always
         image: mongo-express:1.0.2-20-alpine3.19
         container_name: mongo.db.discount.ui.container
         ports:
@@ -114,6 +116,18 @@ services:
             PGADMIN_DEFAULT_PASSWORD: strong-password
         volumes:
             - postgres.db.keycloak.ui.volume:/var/lib/pgadmin
+    rabbitmq:
+        restart: always
+        image: rabbitmq:3.13.7-management
+        container_name: rabbitmq
+        ports:
+             - 5672:5672
+             - 15672:15672
+        environment:
+            RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+            RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+        volumes:
+            - rabbitmq_data:/var/lib/rabbitmq
 volumes:
   mongo.db.category.volume:
   redis.db.basket.volume:
@@ -121,3 +135,4 @@ volumes:
   sqlserver.db.order.volume:
   postgres.db.keycloak.volume:
   postgres.db.keycloak.ui.volume:
+  rabbitmq_data:

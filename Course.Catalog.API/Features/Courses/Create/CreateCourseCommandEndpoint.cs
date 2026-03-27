@@ -1,4 +1,5 @@
 ﻿using Course.Catalog.API.Features.Categories.Create;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Course.Catalog.API.Features.Courses.Create
 {
@@ -6,11 +7,11 @@ namespace Course.Catalog.API.Features.Courses.Create
     {
         public static RouteGroupBuilder CreateCourseGroupItemEndpoint(this RouteGroupBuilder group)
         {
-            group.MapPost("/", async (CreateCourseCommand command, IMediator mediator) =>
+            group.MapPost("/", async ([FromForm]CreateCourseCommand command, IMediator mediator) =>
                 (await mediator.Send(command)).ToGenericResult()).
                 WithName("CreateCourse")
                 .MapToApiVersion(1, 0)
-                .AddEndpointFilter<ValidationFilter<CreateCourseCommand>>();
+                .AddEndpointFilter<ValidationFilter<CreateCourseCommand>>().DisableAntiforgery();
 
             return group;
         }

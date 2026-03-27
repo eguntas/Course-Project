@@ -7,9 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Course.Bus\Course.Bus.csproj" />
-    <ProjectReference Include="..\Course.Order.Domain\Course.Order.Domain.csproj" />
-    <ProjectReference Include="..\Course.Shared\Course.Shared.csproj" />
+    <PackageReference Include="MassTransit.AspNetCore" Version="7.3.1" />
+    <PackageReference Include="MassTransit.RabbitMQ" Version="9.0.1" />
+	  <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
 </Project>

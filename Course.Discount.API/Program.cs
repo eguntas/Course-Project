@@ -1,3 +1,4 @@
+using Course.Bus;
 using Course.Discount.API;
 using Course.Discount.API.Features.Discounts;
 using Course.Discount.API.Options;
@@ -14,6 +15,8 @@ builder.Services.AddVersioningExtension();
 builder.Services.AddOptionExtension();
 builder.Services.AddDatabaseServiceExtension();
 builder.Services.AddCommonServiceExtension(typeof(DiscountAssembly));
+builder.Services.AddMasstransitOrderExt(builder.Configuration);
+
 
 builder.Services.AddAuthenticationServiceExtension(builder.Configuration);
 

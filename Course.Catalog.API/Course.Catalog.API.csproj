@@ -12,11 +12,11 @@
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.14" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
     <PackageReference Include="MongoDB.EntityFrameworkCore" Version="9.1.1" />
-    <PackageReference Include="NewId" Version="4.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Course.Bus\Course.Bus.csproj" />
     <ProjectReference Include="..\Course.Shared\Course.Shared.csproj" />
   </ItemGroup>
 

@@ -11,6 +11,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddOptionExtension();
 builder.Services.AddDatabaseServiceExtension();
 builder.Services.AddCommonServiceExtension(typeof(CatalogAssembly));
+builder.Services.AddMasstransitCatalogExt(builder.Configuration);
 builder.Services.AddVersioningExtension();
 
 builder.Services.AddAuthenticationServiceExtension(builder.Configuration);

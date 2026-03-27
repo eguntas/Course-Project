@@ -1,3 +1,4 @@
+using Course.Bus;
 using Course.File.API;
 using Course.File.API.Features.File;
 using Course.Shared.Extensions;
@@ -11,6 +12,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddVersioningExtension();
 builder.Services.AddCommonServiceExtension(typeof(FileAssembly));
 builder.Services.AddSingleton<IFileProvider>(new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(),"wwwroot")));
+builder.Services.AddMasstransitFileExt(builder.Configuration);
 
 builder.Services.AddAuthenticationServiceExtension(builder.Configuration);
 

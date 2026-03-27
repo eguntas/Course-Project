@@ -1,14 +1,16 @@
-﻿using Course.Order.Application.Contracts.Repositories;
+﻿using Course.Bus.Events;
+using Course.Order.Application.Contracts.Repositories;
 using Course.Order.Application.Contracts.UnitOfWorks;
 using Course.Order.Domain.Entities;
 using Course.Shared;
 using Course.Shared.Services;
+using MassTransit;
 using MediatR;
 using System.Reflection.Metadata;
 
 namespace Course.Order.Application.Features.Orders.CreateOrder
 {
-    public class CreateOrderCommandHandler(IOrderRepository orderRepository , IGenericRepository<int,Address> addressRepository , IIdentityService identityService , IUnitOfWork unitOfWork) 
+    public class CreateOrderCommandHandler(IOrderRepository orderRepository , IGenericRepository<int,Address> addressRepository , IIdentityService identityService , IUnitOfWork unitOfWork , IPublishEndpoint publishEndpoint) 
         : IRequestHandler<CreateOrderCommand, ServiceResult>
     {
       
@@ -45,6 +47,8 @@ namespace Course.Order.Application.Features.Orders.CreateOrder
 
             orderRepository.Update(order);
             await unitOfWork.CommitAsync(cancellationToken);
+
+            await publishEndpoint.Publish(new OrderCreatedEvent(order.Id , identityService.GetUserId) , cancellationToken);
 
             return ServiceResult.SuccessAsNoContent(); 
 

@@ -1,10 +1,10 @@
-﻿
+﻿using Course.Bus.Commands;
 using Course.Catalog.API.Repositories;
 using System.Net;
 
 namespace Course.Catalog.API.Features.Courses.Create
 {
-    public class CreateCourseCommandHandler(AppDbContext context , IMapper mapper) : IRequestHandler<CreateCourseCommand, ServiceResult<Guid>>
+    public class CreateCourseCommandHandler(AppDbContext context , IMapper mapper , IPublishEndpoint publishEndpoint) : IRequestHandler<CreateCourseCommand, ServiceResult<Guid>>
     {
         public async Task<ServiceResult<Guid>> Handle(CreateCourseCommand request, CancellationToken cancellationToken)
         {
@@ -30,6 +30,21 @@ namespace Course.Catalog.API.Features.Courses.Create
             };
             context.Courses.Add(course);
             await context.SaveChangesAsync(cancellationToken);
+
+            if(request.Picture is not null)
+            {
+                using var memoryStream = new MemoryStream();
+                
+                await request.Picture.CopyToAsync(memoryStream , cancellationToken);
+                var pictureAsByteArr = memoryStream.ToArray();
+                
+                var uploadCoursePictureCommand = 
+                    new UploadCoursePictureCommand(course.Id, pictureAsByteArr , request.Picture.FileName);
+                
+                await publishEndpoint.Publish(uploadCoursePictureCommand , cancellationToken);
+
+            }
+
 
             return ServiceResult<Guid>.Created(course.Id, $"/api/courses/{course.Id}");
         }

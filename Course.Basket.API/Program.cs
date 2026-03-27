@@ -1,5 +1,6 @@
 using Course.Basket.API;
 using Course.Basket.API.Feature.Basket;
+using Course.Bus;
 using Course.Shared.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCommonServiceExtension(typeof(BasketAssembly));
+builder.Services.AddMasstransitBasketExt(builder.Configuration);
 builder.Services.AddScoped<BasketService>();
 builder.Services.AddStackExchangeRedisCache(options =>
 {

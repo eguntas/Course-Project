@@ -10,7 +10,7 @@ namespace Course.Order.API.Endpoints
         {
             var group = app.MapGroup("/api/v{version:apiVersion}/orders").WithTags("Orders").WithApiVersionSet(apiVersion)
                .CreateOrderGroupItemEndpoint()
-               .GetOrdersGroupItemEndpoint().RequireAuthorization();
+               .GetOrdersGroupItemEndpoint().RequireAuthorization("Password");
         }
     }
 }

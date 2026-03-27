@@ -1,5 +1,4 @@
-﻿using MassTransit;
-using System.Text;
+﻿using System.Text;
 
 namespace Course.Order.Domain.Entities
 {
@@ -35,7 +34,7 @@ namespace Course.Order.Domain.Entities
         { 
             return new Order
             {
-                Id = NewId.NextGuid(),
+                Id = Guid.CreateVersion7(),
                 Code = GenerateOrderCode(),
                 Created = DateTime.Now,
                 BuyerId = BuyerId,
@@ -50,7 +49,7 @@ namespace Course.Order.Domain.Entities
         {
             return new Order
             {
-                Id = NewId.NextGuid(),
+                Id = Guid.CreateVersion7(),
                 Code = GenerateOrderCode(),
                 Created = DateTime.Now,
                 BuyerId = BuyerId,
