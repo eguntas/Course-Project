@@ -5,15 +5,15 @@ using MediatR;
 
 namespace Course.Payment.API.Features.Payments.Create
 {
-    public class CreatePaymentCommandHandler(AppDbContext dbContext , IIdentityService identityService):IRequestHandler<CreatePaymentCommand , ServiceResult<Guid>>
+    public class CreatePaymentCommandHandler(AppDbContext dbContext , IIdentityService identityService):IRequestHandler<CreatePaymentCommand , ServiceResult<CreatePaymentResponse>>
     {
-        public async Task<ServiceResult<Guid>> Handle(CreatePaymentCommand request, CancellationToken cancellationToken)
+        public async Task<ServiceResult<CreatePaymentResponse>> Handle(CreatePaymentCommand request, CancellationToken cancellationToken)
         {
             var (isSuccess , errorMessage) = await ExternalPaymentProcessAsync(request.CardNumber, request.CardHolderName, request.CardExpirationDate, request.CardSecurityNumber, request.Amount);
 
             if (!isSuccess)
             {
-                return ServiceResult<Guid>.Error("Payment processing failed", errorMessage, System.Net.HttpStatusCode.BadRequest);
+                return ServiceResult<CreatePaymentResponse>.Error("Payment processing failed", errorMessage, System.Net.HttpStatusCode.BadRequest);
             }
 
             var newPayment = new Repositories.Payment(identityService.GetUserId, request.OrderCode, request.Amount);
@@ -21,7 +21,7 @@ namespace Course.Payment.API.Features.Payments.Create
 
             dbContext.Payments.Add(newPayment);
             await dbContext.SaveChangesAsync(cancellationToken);
-            return ServiceResult<Guid>.Success(newPayment.Id);
+            return ServiceResult<CreatePaymentResponse>.Success(new CreatePaymentResponse(newPayment.Id , true,null));
 
         }
 

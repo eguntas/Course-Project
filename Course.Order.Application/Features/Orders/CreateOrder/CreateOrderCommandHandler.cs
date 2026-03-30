@@ -1,4 +1,5 @@
 ﻿using Course.Bus.Events;
+using Course.Order.Application.Contracts.Refit.PaymentService;
 using Course.Order.Application.Contracts.Repositories;
 using Course.Order.Application.Contracts.UnitOfWorks;
 using Course.Order.Domain.Entities;
@@ -10,7 +11,7 @@ using System.Reflection.Metadata;
 
 namespace Course.Order.Application.Features.Orders.CreateOrder
 {
-    public class CreateOrderCommandHandler(IOrderRepository orderRepository , IGenericRepository<int,Address> addressRepository , IIdentityService identityService , IUnitOfWork unitOfWork , IPublishEndpoint publishEndpoint) 
+    public class CreateOrderCommandHandler(IOrderRepository orderRepository , IGenericRepository<int,Address> addressRepository , IIdentityService identityService , IUnitOfWork unitOfWork , IPublishEndpoint publishEndpoint , IPaymentService paymentService) 
         : IRequestHandler<CreateOrderCommand, ServiceResult>
     {
       
@@ -42,8 +43,13 @@ namespace Course.Order.Application.Features.Orders.CreateOrder
             orderRepository.Add(order);
             await unitOfWork.CommitAsync(cancellationToken);
 
-            var paymentId = Guid.Empty;
-            order.SetPaid(paymentId);
+            var paymentResponse = await paymentService.CreatePaymentAsync(new CreatePaymentRequest
+                (order.Code, request.Payment.CardNumber,request.Payment.CardHolderName, request.Payment.Expiration, request.Payment.Cvc, order.TotalPrice));
+
+            if(paymentResponse.Status==false)
+                return ServiceResult.Error(paymentResponse.errorMessage!,System.Net.HttpStatusCode.InternalServerError);
+
+            order.SetPaid(paymentResponse.PaymentId!.Value);
 
             orderRepository.Update(order);
             await unitOfWork.CommitAsync(cancellationToken);

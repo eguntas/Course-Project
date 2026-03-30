@@ -1,6 +1,7 @@
 ﻿using Asp.Versioning.Builder;
 using Course.Payment.API.Features.Payments.Create;
 using Course.Payment.API.Features.Payments.GetAllPaymentByUserId;
+using Course.Payment.API.Features.Payments.GetStatus;
 
 namespace Course.Payment.API.Features.Payments
 {
@@ -10,7 +11,9 @@ namespace Course.Payment.API.Features.Payments
         {
             var group = app.MapGroup("/api/v{version:apiVersion}/payments").WithTags("Payments").WithApiVersionSet(apiVersion).
                CreatePaymentGroupItemEndpoint()
-               .GetAllPaymentByUserIdGroupItemEndpoint().RequireAuthorization();
+               .GetAllPaymentByUserIdGroupItemEndpoint()
+               .GetPaymentStatusGroupItemEndpoint()
+               .RequireAuthorization();
         }
     }
 }
