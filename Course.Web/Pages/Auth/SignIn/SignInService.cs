@@ -2,10 +2,13 @@
 using Course.Web.Pages.Auth.SignUp;
 using Course.Web.Services;
 using Duende.IdentityModel.Client;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Security.Claims;
 
 namespace Course.Web.Pages.Auth.SignIn
 {
-    public class SignInService(IdentityOption identityOption, HttpClient httpClient, ILogger<SignInService> logger)
+    public class SignInService(IHttpContextAccessor contextAccessor , TokenService tokenService, IdentityOption identityOption, HttpClient httpClient, ILogger<SignInService> logger)
     {
         public async Task<ServiceResult> SignInAsync(SignInViewModel model)
         {
@@ -17,9 +20,13 @@ namespace Course.Web.Pages.Auth.SignIn
                     logger.LogError("Token request failed: {Error}", tokenResponse.Error);
                     return ServiceResult.Error(tokenResponse.Error! , tokenResponse.ErrorDescription!);
                 }
-                // Store the access token securely (e.g., in a cookie or local storage)
-                // For demonstration, we will just log it
-                logger.LogInformation("Access Token: {AccessToken}", tokenResponse.AccessToken);
+                
+                var userClaims = tokenService.ExtractClaims(tokenResponse.AccessToken!);
+                var authenticationProperties = tokenService.CreateAuthenticationProperties(tokenResponse);
+                var claimsIdentity = new ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme,ClaimTypes.Name,ClaimTypes.Role);
+                var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+                await contextAccessor.HttpContext!.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal, authenticationProperties);
+
                 return ServiceResult.Success();
             }
             catch (Exception ex)
@@ -28,10 +35,6 @@ namespace Course.Web.Pages.Auth.SignIn
                 return ServiceResult.Error("Sign-in failed", ex.Message);
             }
         }
-
-
-
-
 
         private async Task<TokenResponse> GetAccessTokenAsAdmin(SignInViewModel model)
         {

@@ -1,5 +1,7 @@
 using Course.Web.Pages.Auth.SignIn;
 using Course.Web.Pages.Auth.SignUp;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -22,10 +24,16 @@ namespace Course.Web.Pages.Auth
             var result = await signInService.SignInAsync(SignInViewModel);
             if (result.IsFailure)
             {
-                ModelState.AddModelError(string.Empty, result.Fail.Title);
-                ModelState.AddModelError(string.Empty, result.Fail.Detail);
+                ModelState.AddModelError(string.Empty, result.Fail.Title!);
+                ModelState.AddModelError(string.Empty, result.Fail.Detail!);
                 return Page();
             }
+            return RedirectToPage("/Index");
+        }
+
+        public async Task<IActionResult> OnGetSignOutAsync()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToPage("/Index");
         }
     }
