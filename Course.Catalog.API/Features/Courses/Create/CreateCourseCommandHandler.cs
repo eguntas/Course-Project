@@ -1,10 +1,11 @@
 ﻿using Course.Bus.Commands;
 using Course.Catalog.API.Repositories;
+using Course.Shared.Services;
 using System.Net;
 
 namespace Course.Catalog.API.Features.Courses.Create
 {
-    public class CreateCourseCommandHandler(AppDbContext context , IMapper mapper , IPublishEndpoint publishEndpoint) : IRequestHandler<CreateCourseCommand, ServiceResult<Guid>>
+    public class CreateCourseCommandHandler(AppDbContext context , IMapper mapper , IPublishEndpoint publishEndpoint , IIdentityService identityService) : IRequestHandler<CreateCourseCommand, ServiceResult<Guid>>
     {
         public async Task<ServiceResult<Guid>> Handle(CreateCourseCommand request, CancellationToken cancellationToken)
         {
@@ -21,6 +22,7 @@ namespace Course.Catalog.API.Features.Courses.Create
 
             var course = mapper.Map<Course>(request);
             course.Created = DateTime.UtcNow;
+            course.UserId = identityService.GetUserId;
             course.Id = NewId.NextSequentialGuid();
             course.Feature = new Feature
             {

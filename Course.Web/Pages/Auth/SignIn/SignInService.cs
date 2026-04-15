@@ -58,7 +58,8 @@ namespace Course.Web.Pages.Auth.SignIn
                 ClientId = identityOption.Web.ClientId,
                 ClientSecret = identityOption.Web.ClientSecret,
                 UserName = model.Email,
-                Password = model.Password
+                Password = model.Password,
+                Scope = "offline_access"
             });
 
             

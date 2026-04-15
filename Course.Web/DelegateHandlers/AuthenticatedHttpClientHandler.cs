@@ -1,6 +1,7 @@
 ﻿using Course.Web.Services;
 using Duende.IdentityModel.Client;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 
 namespace Course.Web.DelegateHandlers
@@ -36,6 +37,11 @@ namespace Course.Web.DelegateHandlers
 
             if (tokenResponse.IsError)
                 throw new UnauthorizedAccessException("Failed to refresh access token");
+
+            var authenticationProperties = tokenService.CreateAuthenticationProperties(tokenResponse);
+            var userClaims = httpContextAccessor.HttpContext.User.Claims;
+
+            var claimsIdentity = new System.Security.Claims.ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme, System.Security.Claims.ClaimTypes.Name, System.Security.Claims.ClaimTypes.Role);
 
             request.SetBearerToken(tokenResponse.AccessToken!);
 

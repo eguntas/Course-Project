@@ -11,7 +11,8 @@ namespace Course.Catalog.API.Features.Courses.Create
                 (await mediator.Send(command)).ToGenericResult()).
                 WithName("CreateCourse")
                 .MapToApiVersion(1, 0)
-                .AddEndpointFilter<ValidationFilter<CreateCourseCommand>>().DisableAntiforgery();
+                .AddEndpointFilter<ValidationFilter<CreateCourseCommand>>().DisableAntiforgery()
+                .RequireAuthorization("InstructorPolicy");
 
             return group;
         }
