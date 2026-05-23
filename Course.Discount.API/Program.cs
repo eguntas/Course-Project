@@ -25,7 +25,7 @@ builder.Services.AddAuthenticationServiceExtension(builder.Configuration);
 var app = builder.Build();
 
 app.AddDiscountEndpointExtension(app.AddVersionSetExtension());
-
+app.UseExceptionHandler(x => { });
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

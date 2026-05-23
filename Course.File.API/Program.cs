@@ -20,6 +20,8 @@ var app = builder.Build();
 app.AddFileEndpointExtension(app.AddVersionSetExtension());
 app.UseStaticFiles();
 // Configure the HTTP request pipeline.
+
+app.UseExceptionHandler(x => { });
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

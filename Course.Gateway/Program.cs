@@ -11,6 +11,7 @@ builder.Services.AddAuthenticationServiceExtension(builder.Configuration);
 var app = builder.Build();
 app.MapReverseProxy();
 
+app.UseExceptionHandler(x => { });
 app.MapGet("/", () => "YARP Gateway!");
 
 app.UseAuthentication();

@@ -24,8 +24,8 @@ namespace Course.Web.Pages.Auth.SignUp
             {
                 if (response.StatusCode != System.Net.HttpStatusCode.InternalServerError)
                 {
-                    var keycloakError = await response.Content.ReadFromJsonAsync<KeycloakErrorResponse>();
-                    return ServiceResult.Error(keycloakError!.ErrorMessage ?? "An error occurred while creating the user");
+                    var keycloakErrorResponse = await response.Content.ReadFromJsonAsync<KeycloakErrorResponse>();
+                    return ServiceResult.Error(keycloakErrorResponse!.ErrorMessage ?? "An error occurred while creating the user");
                 }
                 var errorContent = await response.Content.ReadAsStringAsync();
                 logger.LogError("User creation failed: {StatusCode}, {ErrorContent}", response.StatusCode, errorContent);

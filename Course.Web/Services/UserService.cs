@@ -39,7 +39,7 @@ namespace Course.Web.Services
                 if (!httpContextAccessor.HttpContext!.User.Identity!.IsAuthenticated)
                     throw new UnauthorizedAccessException("User is not authentication");
 
-                return httpContextAccessor.HttpContext.User.Claims.Where(x=>x.Type == ClaimTypes.Role).Select(x=>x.Value).ToList();
+                return httpContextAccessor.HttpContext.User.Claims.Where(x=>x.Type == ClaimTypes.Role).Select(x=>x.Value!).ToList();
             }
         }
     }

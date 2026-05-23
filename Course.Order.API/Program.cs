@@ -44,8 +44,15 @@ builder.Services.AddAuthenticationServiceExtension(builder.Configuration);
 
 var app = builder.Build();
 
-app.AddOrderEndpointsExtension(app.AddVersionSetExtension());
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<AppDbContext>();
+    await context.Database.MigrateAsync();
+}
 
+    app.AddOrderEndpointsExtension(app.AddVersionSetExtension());
+app.UseExceptionHandler(x => { });
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

@@ -43,6 +43,10 @@ namespace Course.Web.DelegateHandlers
 
             var claimsIdentity = new System.Security.Claims.ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme, System.Security.Claims.ClaimTypes.Name, System.Security.Claims.ClaimTypes.Role);
 
+            var claimsPrincipal = new System.Security.Claims.ClaimsPrincipal(claimsIdentity);
+
+            await httpContextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal, authenticationProperties);
+            
             request.SetBearerToken(tokenResponse.AccessToken!);
 
             return await base.SendAsync(request , cancellationToken);

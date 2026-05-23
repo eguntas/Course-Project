@@ -1,4 +1,4 @@
-﻿using Course.Web.Pages.Instructor.Dto;
+﻿using Course.Web.Dto;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Refit;
@@ -7,6 +7,12 @@ namespace Course.Web.Services.Refit
 {
     public interface ICatalogRefitService
     {
+        [Get("/api/v1/courses")]
+        Task<ApiResponse<List<CourseDto>>> GetAllCourses();
+
+        [Get("/api/v1/courses/{id}")]
+        Task<ApiResponse<CourseDto>> GetCourse(Guid id);
+
         [Get("/api/v1/categories")]
         Task<ApiResponse<List<CategoryDto>>> GetCategoriesAsync();
 

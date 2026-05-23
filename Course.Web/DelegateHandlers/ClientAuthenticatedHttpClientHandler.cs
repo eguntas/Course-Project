@@ -20,7 +20,7 @@ namespace Course.Web.DelegateHandlers
             var tokenResponse = await tokenService.GetClientAccessToken();
 
             if(tokenResponse.IsError)
-                throw new UnauthorizedAccessException("Failed to retrieve client access token");
+                throw new UnauthorizedAccessException($"Client Token request failed: {tokenResponse.Error}");
 
             request.SetBearerToken(tokenResponse.AccessToken!);
 

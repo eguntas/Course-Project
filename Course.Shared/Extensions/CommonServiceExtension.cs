@@ -1,4 +1,5 @@
-﻿using Course.Shared.Services;
+﻿using Course.Shared.ExceptionHandler;
+using Course.Shared.Services;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +19,7 @@ namespace Course.Shared.Extensions
             services.AddScoped<IIdentityService , IdentityService>();
 
             services.AddAutoMapper(assembly);
+            services.AddExceptionHandler<GlobalExceptionHandler>();
 
             return services;
         }

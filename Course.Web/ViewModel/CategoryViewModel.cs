@@ -1,4 +1,4 @@
-﻿namespace Course.Web.Pages.Instructor.ViewModel
+﻿namespace Course.Web.ViewModel
 {
     public record CategoryViewModel(Guid Id, string Name);
 }

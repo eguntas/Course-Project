@@ -22,6 +22,7 @@ app.AddSeedDataExtension().ContinueWith(x =>
     Console.WriteLine(x.IsFaulted ? x.Exception?.Message : "Seed data added successfully.");
 });
 
+app.UseExceptionHandler(x => { });
 app.AddCategoryEndpointExtension(app.AddVersionSetExtension());
 app.AddCourseEndpointsExtension(app.AddVersionSetExtension());
 

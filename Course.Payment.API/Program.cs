@@ -23,7 +23,7 @@ builder.Services.AddMasstransitExt(builder.Configuration);
 
 var app = builder.Build();
 app.AddPaymentEndpointExtension(app.AddVersionSetExtension());
-
+app.UseExceptionHandler(x => { });
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

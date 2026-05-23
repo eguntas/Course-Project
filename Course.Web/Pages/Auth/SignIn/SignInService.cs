@@ -1,5 +1,4 @@
 ﻿using Course.Web.Options;
-using Course.Web.Pages.Auth.SignUp;
 using Course.Web.Services;
 using Duende.IdentityModel.Client;
 using Microsoft.AspNetCore.Authentication;

@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Refit;
 using System.Net;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using ProblemDetails = Microsoft.AspNetCore.Mvc.ProblemDetails;
 
 namespace Course.Web.Services
 {
@@ -48,8 +50,27 @@ namespace Course.Web.Services
                 }
             };
         }
+        public static ServiceResult FailFromProblemDetails(ApiException exception)
+        {
+            if (string.IsNullOrEmpty(exception.Content))
+                return new ServiceResult
+                {
+                    Fail = new ProblemDetails
+                    {
+                        Title = exception.Message
+                    }
+                };
 
-       
+
+            return new ServiceResult
+            {
+                Fail = JsonSerializer.Deserialize<ProblemDetails>(exception.Content, new JsonSerializerOptions
+                {
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                })
+            };
+        }
+
     }
     public class ServiceResult<T> : ServiceResult
     {
@@ -60,6 +81,27 @@ namespace Course.Web.Services
         {
             Data = data
         };
+
+        public new static ServiceResult<T> FailFromProblemDetails(ApiException exception)
+        {
+            if (string.IsNullOrEmpty(exception.Content))
+                return new ServiceResult<T>
+                {
+                    Fail = new ProblemDetails
+                    {
+                        Title = exception.Message
+                    }
+                };
+
+
+            return new ServiceResult<T>
+            {
+                Fail = JsonSerializer.Deserialize<ProblemDetails>(exception.Content, new JsonSerializerOptions
+                {
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                })
+            };
+        }
 
 
         public new static ServiceResult<T> Error(ProblemDetails problemDetails)

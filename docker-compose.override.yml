@@ -1,0 +1,125 @@
+
+services:
+  course.basket.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - BusOption:Address=rabbitmq 
+      - BusOption:Address=Port:5672 
+      - IdentityOption:Address=http://keycloak:8080/realms/CourseTenant
+      - IdentityOption:Issuer=http://keycloak:8080/realms/CourseTenant  
+      - ConnectionStrings:Redis=redis.db.basket:6379,password=Password123
+    ports:
+      - "8080"
+    depends_on:
+      - redis.db.basket
+      - rabbitmq
+    restart: always
+
+  course.catalog.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - BusOption:Address=rabbitmq 
+      - BusOption:Address=Port:5672 
+      - IdentityOption:Address=http://keycloak:8080/realms/CourseTenant
+      - IdentityOption:Issuer=http://keycloak:8080/realms/CourseTenant  
+      - MongoOption:ConnectionString:mongodb://myuser:Password123@mongo.db.category:27017 
+    ports:
+      - "8080"
+    depends_on:
+      - mongo.db.category
+      - rabbitmq
+    restart: always
+
+  course.discount.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - BusOption:Address=rabbitmq 
+      - BusOption:Address=Port:5672 
+      - IdentityOption:Address=http://keycloak:8080/realms/CourseTenant
+      - IdentityOption:Issuer=http://keycloak:8080/realms/CourseTenant  
+      - MongoOption:ConnectionString:mongodb://myuser:Password123@mongo.db.discount:27017 
+    ports:
+      - "8080"
+    depends_on:
+      - mongo.db.discount
+      - rabbitmq
+    restart: always
+
+  course.file.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - BusOption:Address=rabbitmq 
+      - BusOption:Address=Port:5672 
+      - IdentityOption:Address=http://keycloak:8080/realms/CourseTenant
+      - IdentityOption:Issuer=http://keycloak:8080/realms/CourseTenant 
+    ports:
+      - "8080"
+    depends_on:
+      - rabbitmq
+    restart: always
+    
+
+  course.gateway:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_HTTP_PORTS=8080
+      - IdentityOption:Address=http://keycloak:8080/realms/CourseTenant
+      - IdentityOption:Issuer=http://keycloak:8080/realms/CourseTenant  
+    ports:
+      - "8080"
+    restart: always 
+
+
+  course.order.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - IdentityOption:Address=http://keycloak:8080/realms/CourseTenant
+      - IdentityOption:Issuer=http://keycloak:8080/realms/CourseTenant
+      - BusOption:Address=rabbitmq 
+      - BusOption:Address=Port:5672  
+      - AddressUrlOption:PaymentUrl=http://course.payment.api:8080
+      - ConnectionStrings:SqlServer=Server=sqlserver.db.order,1433;Database=OrderDb;User=Sa;Password=Password12*;Trusted_Connection=False;TrustServerCertificate=True;Integrated Security=False
+    ports:
+      - "8080"
+    depends_on:
+      - sqlserver.db.order
+      - rabbitmq
+    restart: always
+
+
+  course.payment.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - IdentityOption:Address=http://keycloak:8080/realms/CourseTenant
+      - IdentityOption:Issuer=http://keycloak:8080/realms/CourseTenant
+      - BusOption:Address=rabbitmq 
+      - BusOption:Address=Port:5672  
+    ports:
+      - "8080"
+    depends_on:
+      - rabbitmq
+    restart: always
+
+
+  course.web:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - IdentityOption:Address=http://keycloak:8080 
+      - IdentityOption:BaseAddress=http://keycloak:8080/realms/CourseTenant
+      - MicroserviceOption:Catalog=http://course.catalog.api:8080 
+      - MicroserviceOption:File=http://course.file.api:8080
+      - MicroserviceOption:Basket=http://course.basket.api:8080
+      - MicroserviceOption:Order=http://course.order.api:8080
+      - MicroserviceOption:Discount=http://course.discount.api:8080
+      - ApiGatewayOption:BaseAddress=http://course.gateway:8080
+    ports:
+      - "5050:8080"
+    restart: always
+

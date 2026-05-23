@@ -1,13 +1,13 @@
-using Course.Web.Pages.Instructor.ViewModel;
-using Course.Web.Services.Refit;
+using Course.Web.Services;
+using Course.Web.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Course.Web.Pages.Instructor
 {
-    public class CoursesModel(CatalogService catalogService) : PageModel
+    public class CoursesModel(CatalogService catalogService) : Microsoft.AspNetCore.Mvc.RazorPages.PageModel
     {
-        public List<CourseViewModel> courseViewModels { get; set; }
+        public List<CourseViewModel> courseViewModels { get; set; } = null!;
         public async Task OnGetAsync()
         {
             var result = await catalogService.GetCoursesByUserIdAsync();

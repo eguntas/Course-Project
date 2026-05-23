@@ -1,9 +1,10 @@
-﻿namespace Course.Web.Pages.Instructor.Dto
+﻿namespace Course.Web.Dto
 {
-    public record FeatureDto()
+    public class FeatureDto
     {
         public int Duration { get; set; }
         public float Rating { get; set; }
+
         public string EducatorFullName { get; set; } = default!;
     }
 }

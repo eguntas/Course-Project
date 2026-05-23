@@ -21,6 +21,7 @@ builder.Services.AddAuthenticationServiceExtension(builder.Configuration);
 builder.Services.AddVersioningExtension();
 var app = builder.Build();
 
+app.UseExceptionHandler(x => { });
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
