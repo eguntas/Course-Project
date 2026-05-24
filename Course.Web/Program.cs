@@ -11,6 +11,8 @@ using Refit;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddServiceDefaults();
+
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddOptionExt();
@@ -30,12 +32,32 @@ builder.Services.AddExceptionHandler<UnauthorizedAccessExceptionHandler>();
 builder.Services.AddRefitClient<ICatalogRefitService>().ConfigureHttpClient(c =>
 {
     var gatewayOption = builder.Configuration.GetSection(nameof(MicroserviceOption)).Get<MicroserviceOption>();
-    c.BaseAddress = new Uri(gatewayOption!.Catalog.BaseAddress);
+    c.BaseAddress = new Uri("http://course-catalog-api");
+}).AddHttpMessageHandler<AuthenticatedHttpClientHandler>()
+.AddHttpMessageHandler<ClientAuthenticatedHttpClientHandler>();
+
+builder.Services.AddRefitClient<IBasketRefitService>().ConfigureHttpClient(c =>
+{
+    var gatewayOption = builder.Configuration.GetSection(nameof(MicroserviceOption)).Get<MicroserviceOption>();
+    c.BaseAddress = new Uri("http://course-basket-api");
 }).AddHttpMessageHandler<AuthenticatedHttpClientHandler>()
 .AddHttpMessageHandler<ClientAuthenticatedHttpClientHandler>();
 
 
 
+builder.Services.AddRefitClient<IDiscountRefitService>().ConfigureHttpClient(c =>
+{
+    var gatewayOption = builder.Configuration.GetSection(nameof(MicroserviceOption)).Get<MicroserviceOption>();
+    c.BaseAddress = new Uri("http://course-discount-api");
+}).AddHttpMessageHandler<AuthenticatedHttpClientHandler>()
+.AddHttpMessageHandler<ClientAuthenticatedHttpClientHandler>();
+
+builder.Services.AddRefitClient<IOrderRefitService>().ConfigureHttpClient(c =>
+{
+    var gatewayOption = builder.Configuration.GetSection(nameof(MicroserviceOption)).Get<MicroserviceOption>();
+    c.BaseAddress = new Uri("http://course-order-api");
+}).AddHttpMessageHandler<AuthenticatedHttpClientHandler>()
+.AddHttpMessageHandler<ClientAuthenticatedHttpClientHandler>();
 
 builder.Services.AddAuthentication(configureOptions =>
 {
@@ -53,6 +75,8 @@ builder.Services.AddAuthentication();
 
 
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 
 var cultureInfo = new System.Globalization.CultureInfo("en-US");
 System.Globalization.CultureInfo.DefaultThreadCurrentCulture = cultureInfo;

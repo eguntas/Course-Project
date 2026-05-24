@@ -6,6 +6,8 @@ using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddServiceDefaults();
+
 builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -17,6 +19,8 @@ builder.Services.AddMasstransitFileExt(builder.Configuration);
 builder.Services.AddAuthenticationServiceExtension(builder.Configuration);
 
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 app.AddFileEndpointExtension(app.AddVersionSetExtension());
 app.UseStaticFiles();
 // Configure the HTTP request pipeline.

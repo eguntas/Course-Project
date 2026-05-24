@@ -59,6 +59,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ui", "ui", "{D8AC5F33-06BD-
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Course.Web", "Course.Web\Course.Web.csproj", "{93264D11-74D0-4848-BC90-9BF5ACFB7D29}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Course-Project.AppHost", "Course-Project.AppHost\Course-Project.AppHost.csproj", "{3DCB5F19-6711-427D-ADEA-F33692D9552E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Course-Project.ServiceDefaults", "Course-Project.ServiceDefaults\Course-Project.ServiceDefaults.csproj", "{6312953F-A154-8728-F2D3-96A703791223}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -121,6 +125,14 @@ Global
 		{93264D11-74D0-4848-BC90-9BF5ACFB7D29}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93264D11-74D0-4848-BC90-9BF5ACFB7D29}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93264D11-74D0-4848-BC90-9BF5ACFB7D29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DCB5F19-6711-427D-ADEA-F33692D9552E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DCB5F19-6711-427D-ADEA-F33692D9552E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DCB5F19-6711-427D-ADEA-F33692D9552E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DCB5F19-6711-427D-ADEA-F33692D9552E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6312953F-A154-8728-F2D3-96A703791223}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6312953F-A154-8728-F2D3-96A703791223}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6312953F-A154-8728-F2D3-96A703791223}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6312953F-A154-8728-F2D3-96A703791223}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -6,6 +6,8 @@ using Course.Catalog.API.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddServiceDefaults();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddOptionExtension();
@@ -17,6 +19,8 @@ builder.Services.AddVersioningExtension();
 builder.Services.AddAuthenticationServiceExtension(builder.Configuration);
 
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 app.AddSeedDataExtension().ContinueWith(x =>
 {
     Console.WriteLine(x.IsFaulted ? x.Exception?.Message : "Seed data added successfully.");

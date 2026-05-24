@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Sdk Name="Aspire.AppHost.Sdk" Version="9.5.0" />
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <UserSecretsId>caf543de-8978-4fc5-8cc0-75357e393163</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="9.5.0" />
+    <PackageReference Include="Aspire.Hosting.MongoDB" Version="13.3.5" />
+    <PackageReference Include="Aspire.Hosting.PostgreSQL" Version="13.3.5" />
+    <PackageReference Include="Aspire.Hosting.RabbitMQ" Version="13.3.5" />
+    <PackageReference Include="Aspire.Hosting.Redis" Version="13.3.5" />
+    <PackageReference Include="Aspire.Hosting.SqlServer" Version="13.3.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Course.Basket.API\Course.Basket.API.csproj" />
+    <ProjectReference Include="..\Course.Catalog.API\Course.Catalog.API.csproj" />
+    <ProjectReference Include="..\Course.Discount.API\Course.Discount.API.csproj" />
+    <ProjectReference Include="..\Course.File.API\Course.File.API.csproj" />
+    <ProjectReference Include="..\Course.Gateway\Course.Gateway.csproj" />
+    <ProjectReference Include="..\Course.Order.API\Course.Order.API.csproj" />
+    <ProjectReference Include="..\Course.Payment.API\Course.Payment.API.csproj" />
+    <ProjectReference Include="..\Course.Web\Course.Web.csproj" />
+  </ItemGroup>
+
+</Project>

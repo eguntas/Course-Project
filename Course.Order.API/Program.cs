@@ -16,6 +16,8 @@ using Refit;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddServiceDefaults();
+
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
@@ -25,11 +27,11 @@ builder.Services.AddCommonServiceExtension(typeof(OrderApplicationAssembly));
 builder.Services.AddMasstransitExt(builder.Configuration);
 
 
-
-builder.Services.AddDbContext<AppDbContext>(option =>
-{
-    option.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"));
-});
+builder.AddSqlServerDbContext<AppDbContext>("order-db-aspire");
+//builder.Services.AddDbContext<AppDbContext>(option =>
+//{
+//    option.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"));
+//});
 builder.Services.AddScoped(typeof(IGenericRepository<,>), typeof(GenericRepository<,>));
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -43,6 +45,8 @@ builder.Services.AddHostedService<CheckPaymentStatusOrderBackgroundService>();
 builder.Services.AddAuthenticationServiceExtension(builder.Configuration);
 
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 
 using (var scope = app.Services.CreateScope())
 {

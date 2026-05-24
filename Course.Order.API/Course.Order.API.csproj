@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Course-Project.ServiceDefaults\Course-Project.ServiceDefaults.csproj" />
     <ProjectReference Include="..\Course.Bus\Course.Bus.csproj" />
     <ProjectReference Include="..\Course.Order.Application\Course.Order.Application.csproj" />
     <ProjectReference Include="..\Course.Order.Persistance\Course.Order.Persistence.csproj" />
